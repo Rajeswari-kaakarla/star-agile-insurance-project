@@ -33,11 +33,16 @@ pipeline{
                sh 'docker build -t kaakarla/insuranceproject:1 .'
            }
          }
-        stage('Login to dockerhub and push the file'){
+        stage('Login to dockerhub'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhubpasswd', variable: 'dockerhub')]) {
                   sh 'docker login -u kaakarla -p ${dockerhub}'}
             }
+        }
+        stage('push image to dockerhub'){
+          steps{
+               sh 'docker push kaakarla/insuranceproject:1'
+           }
         }
         stage('Deployment using Ansible'){
             steps{
