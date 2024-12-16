@@ -33,5 +33,16 @@ pipeline{
                sh 'docker build -t kaakarla/insuranceproject:1 .'
            }
          }
+        stage('Login to dockerhub and push the file'){
+            steps{
+                withCredentials([string(credentialsId: 'dockerhubpasswd', variable: 'dockerhub')]) {
+                  sh 'docker login -u kaakarla -p ${dockerhubpass}'}
+            }
+        }
+        stage('Deployment using Ansible'){
+            steps{
+                ansiblePlaybook credentialsId: 'ansible', disableHostKeyChecking: true, installation: 'Ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', sudo: true, vaultTmpPath: ''
+            }
+        }
     }
 }
