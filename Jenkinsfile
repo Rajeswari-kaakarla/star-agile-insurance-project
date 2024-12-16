@@ -36,7 +36,7 @@ pipeline{
         stage('Login to dockerhub and push the file'){
             steps{
                 withCredentials([string(credentialsId: 'dockerhubpasswd', variable: 'dockerhub')]) {
-                  sh 'docker login -u kaakarla -p ${dockerhubpass}'}
+                  sh 'docker login -u kaakarla -p ${dockerhub}'}
             }
         }
         stage('Deployment using Ansible'){
