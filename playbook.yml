@@ -13,4 +13,4 @@
     command : sudo systemctl start docker
 
   - name: Deploy Docker Container
-    command: docker run -dt -p 8081:8081 kaakarla/insuranceproject:1
+    command: docker run -dt -p 8084:8081 kaakarla/insuranceproject:1
